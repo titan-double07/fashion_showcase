@@ -1,0 +1,26 @@
+{
+    "collectionName": "components_home_landing_pages",
+    "info": {
+        "displayName": "Hero Section",
+        "icon": "house",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "design_name": {
+            "type": "string",
+            "required": true
+        },
+        "media": {
+            "type": "media",
+            "multiple": true,
+            "required": true,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        }
+    }
+}

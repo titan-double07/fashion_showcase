@@ -1,0 +1,35 @@
+{
+    "kind": "collectionType",
+    "collectionName": "design_collections",
+    "info": {
+        "singularName": "design-collection",
+        "pluralName": "design-collections",
+        "displayName": "Design Collection"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "name": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        },
+        "media": {
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ],
+            "type": "media",
+            "multiple": true
+        },
+        "slug": {
+            "type": "uid",
+            "targetField": "name"
+        }
+    }
+}
