@@ -1,0 +1,28 @@
+{
+    "kind": "collectionType",
+    "collectionName": "landing_page_medias",
+    "info": {
+        "singularName": "landing-page-media",
+        "pluralName": "landing-page-medias",
+        "displayName": "Landing page media"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "name": {
+            "type": "string"
+        },
+        "media": {
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ],
+            "type": "media",
+            "multiple": true
+        }
+    }
+}
