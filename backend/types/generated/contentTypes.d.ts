@@ -603,7 +603,8 @@ export interface ApiLandingPageMediaLandingPageMedia
   info: {
     singularName: 'landing-page-media';
     pluralName: 'landing-page-medias';
-    displayName: 'Landing page media';
+    displayName: 'Home page Hero';
+    description: '';
   };
   options: {
     draftAndPublish: true;
