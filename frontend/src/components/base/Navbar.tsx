@@ -29,14 +29,18 @@ export default function Navbar() {
   return (
     <m.nav
       initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        mixBlendMode: isScrolled ? "normal" : "difference",
+      }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed top-0 left-0 w-full  z-50">
+      className="fixed top-0 left-0 w-full  mix-blend-difference z-50">
       <m.div
         animate={{
           backgroundColor: isScrolled
-            ? "rgba(255, 255, 255, 0.1)"
-            : "transparent",
+            ? "rgba(25, 25, 25, 0.1)"
+            : "rgba(0, 0, 0, 0)",
           backdropFilter: isScrolled ? "blur(5px)" : "blur(0px)",
           boxShadow: isScrolled ? "0px 4px 12px rgba(0, 0, 0, 0.1)" : "none",
           height: isScrolled ? "60px" : "48px",

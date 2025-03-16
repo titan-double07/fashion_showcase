@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+ 
 
 // a utiliTY function to get the strapi  image url
 // export function getStrapiURL() {

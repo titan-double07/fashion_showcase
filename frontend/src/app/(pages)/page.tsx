@@ -9,11 +9,11 @@ export default async function page() {
   // console.log("🚀 ~ Home ~ data:", data)
   
   return (
-    <div className=" ">
+    <>
       <HeroSection />
       <IntroSection />
       <CollectionSection />  
-    </div>
+    </>
   );
 }
 

@@ -35,11 +35,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning className={`antialiased`}>
+      <body suppressHydrationWarning className={`antialiased `}>
         <LazyMotionProvider>
           <SplashScreen>
             <Navbar />
-            <main className="min-h-screen  ">{children}</main>
+            <main className="min-h-screen overflow-x-hidden scroll-smooth snap-y ">
+              {children}
+            </main>
             <Footer />
           </SplashScreen>
         </LazyMotionProvider>
