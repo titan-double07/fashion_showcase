@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         workSans: ["var(--font-work-sans)", "sans"],
-        libreBaskerville: ["var(--font-libre-baskerville)", "serif"], 
+        libreBaskerville: ["var(--font-libre-baskerville)", "serif"],
       },
     },
   },
