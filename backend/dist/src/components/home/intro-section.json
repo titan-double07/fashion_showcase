@@ -1,0 +1,16 @@
+{
+    "collectionName": "components_home_intro_sections",
+    "info": {
+        "displayName": "Intro Section",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "paragraph_1": {
+            "type": "text"
+        },
+        "paragraph_2": {
+            "type": "text"
+        }
+    }
+}

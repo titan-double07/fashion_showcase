@@ -6,10 +6,10 @@ import {
 import { API_URL } from "@/lib/constants";
 import TypedText from "@/lib/motion/components/TypedText";
 import { m } from "@/lib/motion/motion";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import MaxWidthContainer from "../base/MaxWidthContainer";
 import GlowingOrb from "../base/GlowingOrb";
+import MaxWidthContainer from "../base/MaxWidthContainer";
+import Link from "next/link";
 
 export function HeroSection() {
   const [media, setMedia] = useState<HomePageHeroMedia[]>([]);
@@ -83,12 +83,12 @@ export function HeroSection() {
 export const IntroSection = () => {
   const [isDone, setIsDone] = useState(false);
   return (
-    <m.div className="relative h-[500px] w-full snap-center overflow-hidden bg-black flex ">
+    <m.div className="relative flex h-screen w-full snap-center overflow-hidden bg-black">
       {/* Orbs */}
       <GlowingOrb size={300} className="bg-blue-500" />
       <GlowingOrb size={500} />
 
-      <MaxWidthContainer className="flex h-full max-w-[1000px] flex-col justify-center space-y-12 px-2 py-14 md:px-10 md:py-32 lg:space-y-[100px]">
+      <MaxWidthContainer className="flex min-h-full max-w-[1000px] flex-col justify-center space-y-12 px-2 md:px-10 lg:space-y-[100px]">
         {/* First Paragraph - Typed Effect */}
 
         <TypedText
@@ -110,6 +110,60 @@ export const IntroSection = () => {
 };
 
 export const CollectionSection = () => {
+  //  const ref = useRef(null);
+  //  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  //  // Animation hooks
+  //  const [scope, animate] = useAnimate();
+
+  //  useEffect(() => {
+  //    if (isInView) {
+  //      // Step 1: Animate white lines appearing
+  //      animate(".line", { opacity: 1, scaleX: 1 }, { duration: 1, delay: 0.2 })
+  //        .then(() => {
+  //          // Step 2: Fade in videos after lines appear
+  //        animate(
+  //            ".video",
+  //            { opacity: 1 },{ duration: 1, stagger: 0.3 },
+  //          )
+  //        })
+  //        .then(() => {
+  //          // Step 3: Prepare for the image reveal on next scroll
+  //          console.log("Videos have appeared. Ready for images.");
+  //        });
+  //    }
+  //  }, [isInView, animate]);
+
+  //  return (
+  //    <section
+  //      ref={mergeRefs(ref, scope)}
+  //      className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-black"
+  //    >
+  //      <div  className="relative h-full w-full">
+  //        {/* White Dividing Lines */}
+  //        {[...Array(4)].map((_, index) => (
+  //          <m.div
+  //            key={index}
+  //            className="line absolute left-[25%] top-0 h-full w-[2px] scale-x-0 bg-white opacity-0"
+  //            style={{ left: `${index * 25}%` }} // Positioning lines at 25% intervals
+  //          />
+  //        ))}
+
+  //        {/* Video Sections */}
+  //        {[...Array(4)].map((_, index) => (
+  //          <m.div
+  //            key={index}
+  //            className="video absolute h-full w-[25%] opacity-0"
+  //            style={{ left: `${index * 25}%` }}
+  //          >
+  //            <video autoPlay loop muted className="h-full w-full object-cover">
+  //              <source src={`/videos/video-${index + 1}.mp4`} type="video/mp4" />
+  //            </video>
+  //          </m.div>
+  //        ))}
+  //      </div>
+  //    </section>
+  //  );
   return (
     <div id="collections" className="flex h-screen flex-col bg-yellow-500">
       Collection Section : Here, we will display the collections as the user

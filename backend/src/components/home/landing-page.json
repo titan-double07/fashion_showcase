@@ -7,20 +7,14 @@
   },
   "options": {},
   "attributes": {
-    "design_name": {
-      "type": "string",
-      "required": true
-    },
-    "media": {
-      "type": "media",
-      "multiple": true,
+    "hero_collection_video": {
+      "displayName": "Hero collection video",
+      "type": "component",
+      "repeatable": true,
+      "component": "home.hero-collection-video",
       "required": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "max": 3,
+      "min": 1
     }
   }
 }

@@ -1,0 +1,22 @@
+{
+    "collectionName": "components_home_hero_collection_videos",
+    "info": {
+        "displayName": "Hero collection video",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "collection_name": {
+            "type": "string"
+        },
+        "collection_media": {
+            "allowedTypes": [
+                "images",
+                "videos"
+            ],
+            "type": "media",
+            "multiple": false,
+            "required": true
+        }
+    }
+}

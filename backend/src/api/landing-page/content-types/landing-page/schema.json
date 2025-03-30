@@ -12,19 +12,22 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "media": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": true,
-      "required": true
+    "intro_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.intro-section"
     },
-    "design_name": {
-      "type": "string"
+    "collection_section": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.collection-section"
+    },
+    "hero_collection_video": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.hero-collection-video",
+      "max": 3,
+      "min": 1
     }
   }
 }

@@ -575,12 +575,22 @@ export interface ApiLandingPageLandingPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    media: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
+    intro_section: Schema.Attribute.Component<'home.intro-section', false>;
+    collection_section: Schema.Attribute.Component<
+      'home.collection-section',
+      false
+    >;
+    hero_collection_video: Schema.Attribute.Component<
+      'home.hero-collection-video',
       true
     > &
-      Schema.Attribute.Required;
-    design_name: Schema.Attribute.String;
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 3;
+        },
+        number
+      >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
