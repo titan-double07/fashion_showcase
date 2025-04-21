@@ -4,11 +4,23 @@ import {
   useScroll,
   Variant,
   Variants,
-    useAnimate,
-  useInView
+  useAnimate,
+  useInView,
+  stagger,
+  useTransform,
+  usePresence,AnimatePresence
 } from "motion/react";
 
-export { m, useScroll,useAnimate,useInView };
+export {
+  m,
+  useScroll,
+  useAnimate,
+  useInView,
+  stagger,
+  useTransform,
+  usePresence,
+  AnimatePresence,
+};
 
 // VARIANTS
 // slide in

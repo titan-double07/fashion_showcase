@@ -1,38 +1,25 @@
 "use client";
 import {
-  getHomePageHeroMedia,
-  HomePageHeroMedia,
+  CollectionSectionData,
+  HeroCollection,
+  Intro,
 } from "@/api/services/page-content/get-page-content";
 import { API_URL } from "@/lib/constants";
 import TypedText from "@/lib/motion/components/TypedText";
-import { m } from "@/lib/motion/motion";
-import { useEffect, useState } from "react";
+import { m, stagger, useAnimate, useInView, usePresence } from "@/lib/motion/motion";
+import { useEffect, useRef, useState } from "react";
 import GlowingOrb from "../base/GlowingOrb";
 import MaxWidthContainer from "../base/MaxWidthContainer";
-import Link from "next/link";
 
-export function HeroSection() {
-  const [media, setMedia] = useState<HomePageHeroMedia[]>([]);
-
-  // Fetch the hero media on mount
-  useEffect(() => {
-    async function fetchVideos() {
-      const data = await getHomePageHeroMedia();
-      if (data?.data) {
-        setMedia(data.data);
-      }
-    }
-    fetchVideos();
-  }, []);
-
+export function HeroSection({ collection }: { collection?: HeroCollection[] }) {
   return (
     <div className="scrollbar-hide relative h-screen w-full snap-y snap-proximity overflow-y-scroll">
-      {media.length > 0 &&
-        media.map((item) => (
+      {!!collection &&
+        collection?.map((item) => (
           // Each slide takes up the full height and snaps into place.
-          <div key={item.media.id} className="relative h-full snap-start">
+          <div key={item.id} className="relative h-full snap-start">
             <m.video
-              src={`${API_URL}${item.media.url}`}
+              src={`${API_URL}${item.collection_media.url}`}
               autoPlay
               muted
               loop
@@ -47,7 +34,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {item.name}
+              {item.collection_name}
             </m.div>
           </div>
         ))}
@@ -80,7 +67,7 @@ export function HeroSection() {
 //     </m.div>
 //   );
 // };
-export const IntroSection = () => {
+export const IntroSection = ({ intro }: { intro?: Intro }) => {
   const [isDone, setIsDone] = useState(false);
   return (
     <m.div className="relative flex h-screen w-full snap-center overflow-hidden bg-black">
@@ -92,7 +79,7 @@ export const IntroSection = () => {
         {/* First Paragraph - Typed Effect */}
 
         <TypedText
-          text="A Journey Through Design Excellence"
+          text={intro?.paragraph_1 || ""}
           className="z-20 self-end text-right text-5xl font-bold text-white md:max-w-[800px]"
           onAnimationComplete={() => setIsDone(true)}
         />
@@ -100,7 +87,7 @@ export const IntroSection = () => {
         {/* Second Paragraph - Typed Effect */}
         {isDone && ( //display second paragraph after the first is done
           <TypedText
-            text="Each collection is a reflection of artistry, innovation, and timeless craftsmanship."
+            text={intro?.paragraph_2 || ""}
             className="z-20 text-left text-2xl text-white/80 md:max-w-[600px]"
           />
         )}
@@ -109,70 +96,166 @@ export const IntroSection = () => {
   );
 };
 
-export const CollectionSection = () => {
-  //  const ref = useRef(null);
-  //  const isInView = useInView(ref, { once: true, amount: 0.3 });
+export const CollectionSection = ({
+  data,
+}: {
+  data?: CollectionSectionData;
+}) => {
+  // fetch the collection data from landing page api
+  console.log("🚀 ~ CollectionSection ~ data:", data);
 
-  //  // Animation hooks
-  //  const [scope, animate] = useAnimate();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { amount: 0.5 });
 
-  //  useEffect(() => {
-  //    if (isInView) {
-  //      // Step 1: Animate white lines appearing
-  //      animate(".line", { opacity: 1, scaleX: 1 }, { duration: 1, delay: 0.2 })
-  //        .then(() => {
-  //          // Step 2: Fade in videos after lines appear
-  //        animate(
-  //            ".video",
-  //            { opacity: 1 },{ duration: 1, stagger: 0.3 },
-  //          )
-  //        })
-  //        .then(() => {
-  //          // Step 3: Prepare for the image reveal on next scroll
-  //          console.log("Videos have appeared. Ready for images.");
-  //        });
-  //    }
-  //  }, [isInView, animate]);
+  const [scope, animate] = useAnimate();
+  
 
-  //  return (
-  //    <section
-  //      ref={mergeRefs(ref, scope)}
-  //      className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-black"
-  //    >
-  //      <div  className="relative h-full w-full">
-  //        {/* White Dividing Lines */}
-  //        {[...Array(4)].map((_, index) => (
-  //          <m.div
-  //            key={index}
-  //            className="line absolute left-[25%] top-0 h-full w-[2px] scale-x-0 bg-white opacity-0"
-  //            style={{ left: `${index * 25}%` }} // Positioning lines at 25% intervals
-  //          />
-  //        ))}
+  // Initial entrance animations
+  useEffect(() => {
+    if (!isInView || !data) return;
 
-  //        {/* Video Sections */}
-  //        {[...Array(4)].map((_, index) => (
-  //          <m.div
-  //            key={index}
-  //            className="video absolute h-full w-[25%] opacity-0"
-  //            style={{ left: `${index * 25}%` }}
-  //          >
-  //            <video autoPlay loop muted className="h-full w-full object-cover">
-  //              <source src={`/videos/video-${index + 1}.mp4`} type="video/mp4" />
-  //            </video>
-  //          </m.div>
-  //        ))}
-  //      </div>
-  //    </section>
-  //  );
+    animate([
+      // starting line animation
+      [
+        ".line",
+        { scaleY: [0, 1] },
+        {
+          duration: 0.8,
+          delay: stagger(0.5),
+          ease: "easeInOut",
+        },
+      ],
+      // media slide in animation
+      [
+        ".intro-media",
+        { opacity: [0, 1], height: ["0%", "100%"] },
+        {
+          duration: 1,
+          delay: stagger(0.3),
+        },
+      ],
+    ]);
+  }, [isInView, animate, data]);
+
   return (
-    <div id="collections" className="flex h-screen flex-col bg-yellow-500">
-      Collection Section : Here, we will display the collections as the user
-      scrolls. for each collection the images for the collection would be
-      displayed as a stack with one image of the cloth (worn by a model) display
-      in full at the side which changes as the user hovers on the stack
-      <Link href="/collections/1" className="text-blue-500 underline">
-        Go to Collection Page
-      </Link>
-    </div>
+    <section
+      ref={ref}
+      className="relative h-screen w-full overflow-hidden bg-black"
+    >
+      <div ref={scope} className="absolute inset-0">
+        {data?.intro_media?.slice(0, -1).map((_, index) => {
+          const left = ` ${((index + 1) / data.intro_media.length) * 100}%`;
+          return (
+            <div
+              key={`line-${index}`}
+              className="line absolute top-0 h-full w-1 origin-top scale-y-0 bg-white"
+              style={{ left }}
+            />
+          );
+        })}
+
+        {/* Intro Media Columns */}
+        <div
+          className="absolute inset-0 z-0 grid gap-0"
+          style={{
+            gridTemplateColumns: ` repeat(${data?.intro_media?.length || 1}, 1fr)`,
+          }}
+        >
+          {data?.intro_media?.map((media, index) => (
+            <div key={index} className="intro-media h-full w-full opacity-0">
+              <video
+                className="h-full w-full object-cover"
+                src={API_URL + media?.url}
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export const CollectionIntroSection = ({ data }: { data: CollectionSectionData }) => {
+  const ref = useRef(null);
+  const [scope, animate] = useAnimate();
+  const [isPresent, safeToRemove] = usePresence(); // from framer-motion
+
+  // Entrance animation
+  useEffect(() => {
+    if (isPresent && data) {
+      animate([
+        [
+          ".line",
+          { scaleY: [0, 1] },
+          { duration: 0.8, delay: stagger(0.5), ease: "easeInOut" },
+        ],
+        [
+          ".intro-media",
+          { opacity: [0, 1], height: ["0%", "100%"] },
+          { duration: 1, delay: stagger(0.3) },
+        ],
+      ]);
+    }
+  }, [isPresent, data]);
+
+  // Exit animation
+  useEffect(() => {
+    if (!isPresent) {
+      animate([
+        [
+          ".intro-media",
+          { opacity: [1, 0], height: ["100%", "0%"] },
+          { duration: 1 },
+        ],
+        [".line", { scaleY: [1, 0] }, { duration: 0.8 }],
+      ]).then(() => {
+        safeToRemove(); // triggers unmount
+      });
+    }
+  }, [isPresent]);
+
+  return (
+    <m.section
+      ref={ref}
+      className="relative h-screen w-full overflow-hidden bg-black"
+      exit={{ opacity: 0 }} // fallback if exit animation fails
+    >
+      <div ref={scope} className="absolute inset-0">
+        {data?.intro_media?.slice(0, -1).map((_, index) => {
+          const left = `${((index + 1) / data.intro_media.length) * 100}%`;
+          return (
+            <div
+              key={`line-${index}`}
+              className="line absolute top-0 h-full w-1 origin-top scale-y-0 bg-white"
+              style={{ left }}
+            />
+          );
+        })}
+
+        <div
+          className="absolute inset-0 z-0 grid"
+          style={{
+            gridTemplateColumns: `repeat(${data?.intro_media?.length || 1}, 1fr)`,
+          }}
+        >
+          {data?.intro_media?.map((media, index) => (
+            <div key={index} className="intro-media h-full w-full opacity-0">
+              <video
+                className="h-full w-full object-cover"
+                src={API_URL + media?.url}
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </m.section>
   );
 };
