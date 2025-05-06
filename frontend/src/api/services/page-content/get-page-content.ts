@@ -19,8 +19,11 @@ type ApiResponse<T> = {
 export type Media = {
   id: number;
   documentId: string;
+  name: string;
   url: string;
   mime: string;
+  width: number;
+  height: number;
 };
 
 export type HomePageHeroMedia = {
@@ -57,6 +60,7 @@ export type CollectionSectionData = {
 type DesignCollection = {
   id: number;
   documentId: string;
+  name: string;
   description: string;
   slug: string;
   media: Media[];

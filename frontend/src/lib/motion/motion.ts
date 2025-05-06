@@ -8,7 +8,9 @@ import {
   useInView,
   stagger,
   useTransform,
-  usePresence,AnimatePresence
+  usePresence,
+  AnimatePresence,
+  useMotionValueEvent
 } from "motion/react";
 
 export {
@@ -20,6 +22,7 @@ export {
   useTransform,
   usePresence,
   AnimatePresence,
+  useMotionValueEvent
 };
 
 // VARIANTS
@@ -27,7 +30,7 @@ export {
 export const slideIn = ({
   direction,
   distance = 50,
-  transition = { duration: 0.8, delay: 0, ease: "easeInOut" },
+  transition = { duration: 0.8, ease: "easeInOut" },
 }: {
   direction: "left" | "right" | "top" | "bottom";
   distance?: number;
@@ -59,14 +62,18 @@ export const staggerContainer = ({
   staggerChildren: number;
   staggerDirection?: 1 | -1;
   delayChildren?: number;
-}): Variants => ({
-  visible: {
-    transition: {
-      when: "beforeChildren",
-      staggerChildren,
-      staggerDirection,
-      delayChildren,
+}): Variants => {
+  return {
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren,
+        staggerDirection,
+        delayChildren,
+      },
     },
-  },
-  hidden: {},
-});
+    hidden: {
+      opacity: 0,
+    },
+  };
+};
