@@ -1,0 +1,10 @@
+onlyBuiltDependencies:
+  - '@swc/core'
+  - better-sqlite3
+  - bufferutil
+  - core-js-pure
+  - es5-ext
+  - esbuild
+  - msw
+  - sharp
+  - utf-8-validate

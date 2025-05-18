@@ -14,7 +14,7 @@ export default async function page() {
     <div className="relative flex min-h-screen w-full flex-col items-center justify-start bg-black">
       <HeroSection collection={data?.hero_collection_video} />
       <IntroSection intro={data?.intro_section} />
-      <CollectionSection data={data?.collection_section} />
+      {/* <CollectionSection data={data?.collection_section} /> */}
     </div>
   );
 }

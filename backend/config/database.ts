@@ -1,4 +1,13 @@
 import path from 'path';
+import fs from "fs";
+
+
+const certPath = (name: string) => {
+  const file = process.env[`DATABASE_SSL_${name}`];
+  return file
+    ? fs.readFileSync(path.resolve(__dirname, "..", file)).toString()
+    : undefined;
+};
 
 export default ({ env }) => {
   const client = env('DATABASE_CLIENT', 'sqlite');
