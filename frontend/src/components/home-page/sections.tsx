@@ -4,7 +4,6 @@ import {
   HeroCollection,
   Intro,
 } from "@/api/services/page-content/get-page-content";
-import { API_URL } from "@/lib/constants";
 import TypedText from "@/lib/motion/components/TypedText";
 import {
   m,
@@ -29,7 +28,8 @@ export function HeroSection({ collection }: { collection?: HeroCollection[] }) {
           // Each slide takes up the full height and snaps into place.
           <div key={item.id} className="relative h-full snap-start">
             <m.video
-              src={`${API_URL}${item.collection_media.url}`}
+              // src={`${API_URL}${item.collection_media.url}`}
+              src={`${item.collection_media.url}`}
               autoPlay
               muted
               loop
@@ -110,7 +110,9 @@ export const CollectionSection = ({
   data,
 }: {
   data?: CollectionSectionData;
-}) => {
+  }) => {
+  console.log("🚀 ~ data:", data)
+  
   // fetch the collection data from landing page api
   return (
     <>
@@ -128,6 +130,7 @@ export const CollectionIntroSection = ({
 }: {
   data: CollectionSectionData;
 }) => {
+
   const ref = useRef(null);
 
   const isInView = useInView(ref, { amount: 0.5,once:true });
@@ -186,7 +189,7 @@ export const CollectionIntroSection = ({
             <div key={index} className="intro-media h-full w-full opacity-0">
               <video
                 className="h-full w-full object-cover"
-                src={API_URL + media?.url}
+                src={media?.url}
                 autoPlay
                 muted
                 loop
@@ -201,6 +204,7 @@ export const CollectionIntroSection = ({
 };
 
 export const CollectionList = ({ data }: { data?: CollectionSectionData }) => {
+  console.log("🚀 ~ CollectionList ~ data:", data)
   // const ref = useRef(null);
 
   // const isInView = useInView(ref, { amount: 0.5 });
@@ -255,7 +259,7 @@ export const CollectionList = ({ data }: { data?: CollectionSectionData }) => {
                 // >
                 <MImage
                   key={item.id}
-                  src={API_URL + item.url}
+                  src={item.url}
                   alt={item.name || "Media"}
                   className="h-full w-full  object-cover"
                   width={500}

@@ -9,10 +9,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        workSans: ["var(--font-work-sans)", "sans"],
-        libreBaskerville: ["var(--font-libre-baskerville)", "serif"],
-      },
+     
     },
   },
 };
